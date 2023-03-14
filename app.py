@@ -25,9 +25,10 @@ def seedTorch(seed):
     torch.backends.cudnn.benchmark = False
 import string
 nonprint = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~ \t\n\r\x0b\x0c'
+
 def run(prompts, seed):
     seedTorch(seed)
-    return llama.generate([f'{prompts}'])
+    return llama.generate([f'{prompts}'])[0]
 
 def remove_non_printable(s):
     lst = []
@@ -42,9 +43,8 @@ with gr.Blocks(css="#margin-top {margin-top: 15px} #center {text-align: center;}
     with gr.Row(elem_id = 'description'):
         gr.Markdown(""" To run LLaMA, be sure to select a model size that works for your machine. Single GPUs should always use '7B'.\n Start typing below and then click **Run to generate text** to see the output.""")
     with gr.Row():
-        ckpt = gr.Radio(["7B"], label="Checkpoint directory", value = "7B", interactive = False)
-        seed = gr.Slider(label = 'Seed', value = 8019, minimum = 1, maximum = 10000, step =1, interactive = True)
         prompts = gr.Textbox(label = 'Prompt input', placeholder="What is your prompt?", value = 'my new invention is the', interactive = True)
+        seed = gr.Slider(label = 'Seed', value = 8019, minimum = 1, maximum = 10000, step =1, interactive = True)
         
     btn = gr.Button("Run to generate text")
     with gr.Row():
@@ -52,7 +52,7 @@ with gr.Blocks(css="#margin-top {margin-top: 15px} #center {text-align: center;}
     with gr.Row():
         gr.Image('assets/logo.png').style(height = 53, width = 125, interactive = False)
 
-    btn.click(fn=run, inputs=[prompts, seed, ckpt], outputs=out)
+    btn.click(fn=run, inputs=[prompts, seed], outputs=out)
 
 
 demo.launch(share = True)
