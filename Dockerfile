@@ -8,4 +8,4 @@ RUN git clone https://github.com/gradient-ai/vanilla-llama
 WORKDIR vanilla-llama/
 RUN pip install -r requirements.txt
 
-COPY 7B/* ./ 
+COPY models/7B/ ./models 
