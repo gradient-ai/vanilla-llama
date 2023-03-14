@@ -8,4 +8,6 @@ RUN git clone https://github.com/gradient-ai/vanilla-llama
 WORKDIR vanilla-llama/
 RUN pip install -r requirements.txt
 
-COPY models/7B/ ./models/7B 
+COPY models/7B/ ./models/7B
+COPY models/tokenizer.model ./models/tokenizer.model
+COPY models/tokenizer_checklist.chk ./models/tokenizer_checklist.chk
