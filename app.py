@@ -3,7 +3,6 @@ from typing import Tuple
 import os
 import sys
 import torch
-import fire
 import time
 import json
 import argparse
@@ -11,11 +10,11 @@ import subprocess
 from pathlib import Path
 from inference import LLaMAInference
 
-from fairscale.nn.model_parallel.initialize import initialize_model_parallel
 from datetime import datetime
 from llama import ModelArgs, Transformer, Tokenizer, LLaMA
 import torch
 
+llama_path = 'models'
 llama = LLaMAInference(llama_path, "7B")
 
 
